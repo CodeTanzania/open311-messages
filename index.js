@@ -49,7 +49,7 @@ exports = module.exports = function (options) {
      * register, compile and exports mongoose model
      * @type {mongoose.Model}
      */
-    Message = mongoose.model('Message', MessageSchema);
+    Message = mongoose.model(options.model, MessageSchema);
 
   }
 

@@ -18,7 +18,7 @@ mongoose.connect(<url>);
 
 ...
 
-const Message = require('Message');
+const Message = require('open311-messages')(<options>);
 
 ...
 

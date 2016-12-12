@@ -4,6 +4,7 @@
 const path = require('path');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
+const faker = require('faker');
 const Message = require(path.join(__dirname, '..', '..'))();
 
 describe('open311-messages', function () {
@@ -123,6 +124,34 @@ describe('open311-messages', function () {
       const schema = model.schema.obj;
 
       expect(schema.result).to.exist;
+    });
+
+  });
+
+  describe('message instance', function () {
+
+    it('should be able to send message', function (done) {
+      const details = {
+        from: faker.internet.email(),
+        to: faker.internet.email(),
+        body: faker.lorem.sentence()
+      };
+      const message = new Message(details);
+
+      message.send({ fake: true }, function (error, sent) {
+        expect(error).to.not.exist;
+        expect(sent).to.exist;
+
+        expect(sent._id).to.exist;
+        expect(sent.sentAt).to.exist;
+        expect(sent.body).to.exist;
+        expect(sent.body).to.be.equal(details.body);
+        expect(sent.from).to.exist;
+        expect(sent.from).to.be.equal(details.from);
+
+        done(error, sent);
+      });
+
     });
 
   });
