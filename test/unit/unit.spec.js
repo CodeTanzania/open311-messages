@@ -150,6 +150,8 @@ describe('open311-messages', function () {
         expect(sent.from).to.exist;
         expect(sent.from).to.be.equal(details.from);
 
+        expect(sent.queue).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
+
         done(error, sent);
       });
 
@@ -175,6 +177,8 @@ describe('open311-messages', function () {
           expect(sent.body).to.be.equal(details.body);
           expect(sent.from).to.exist;
           expect(sent.from).to.be.equal(details.from);
+
+          expect(sent.queue).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
 
           done(error, sent);
         });
