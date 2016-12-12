@@ -129,7 +129,7 @@ describe('open311-messages', function () {
 
   });
 
-  describe('message instance', function () {
+  describe('message#send', function () {
 
     it('should be able to send fake message', function (done) {
       const details = {
@@ -189,6 +189,47 @@ describe('open311-messages', function () {
         });
 
       });
+
+  });
+
+  describe('message#queue', function () {
+
+    it('should be able to queue message for later send', function (done) {
+
+      const details = {
+        from: faker.internet.email(),
+        to: faker.internet.email(),
+        body: faker.lorem.sentence(),
+        transport: echoTransport
+      };
+
+      Message._queue.on('message:queue:error', function (error) {
+        done(error);
+      });
+
+      Message._queue.on('message:queue:success', function (message) {
+        expect(message).to.exist;
+
+        expect(message._id).to.exist;
+        expect(message.sentAt).to.not.exist;
+        expect(message.body).to.exist;
+        expect(message.body).to.be.equal(details.body);
+        expect(message.from).to.exist;
+        expect(message.from).to.be.equal(details.from);
+
+        expect(message.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+        expect(message.priority).to.be.equal(Message.PRIORITY_NORMAL);
+        expect(message.queueName)
+          .to.be.equal(Message.TYPE_EMAIL.toLowerCase());
+
+        done(null, message);
+      });
+
+      const message = new Message(details);
+
+      message.queue();
+
+    });
 
   });
 

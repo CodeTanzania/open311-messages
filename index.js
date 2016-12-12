@@ -15,15 +15,16 @@ const mongoose = require('mongoose');
 const kue = require('kue');
 const MessageSchema = require(path.join(__dirname, 'lib', 'message'));
 let Message;
+const modelName = 'Message';
 
 exports = module.exports = function (options) {
   //merge default options
-  options = _.merge({}, { model: 'Message' }, options);
+  options = _.merge({}, options);
 
   //ensure singletons
   try {
     //try to obtain existing Message model instance
-    Message = mongoose.model(options.model);
+    Message = mongoose.model(modelName);
   }
 
   //no Message model exist continue
@@ -49,7 +50,7 @@ exports = module.exports = function (options) {
      * register, compile and exports mongoose model
      * @type {mongoose.Model}
      */
-    Message = mongoose.model(options.model, MessageSchema);
+    Message = mongoose.model(modelName, MessageSchema);
 
   }
 
