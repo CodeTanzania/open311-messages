@@ -19,8 +19,33 @@ mongoose.connect(<url>);
 ...
 
 const Message = require('open311-messages')(<options>);
+const message = new Message({
+        from: faker.internet.email(),
+        to: faker.internet.email(),
+        body: faker.lorem.sentence()
+    });
 
-...
+//directly send message
+message.send();
+
+//queue message for later send(or process in background or other process)
+message.queue();
+
+//resend unsent message
+Message.resend();
+
+//re-queue unsent message
+Message.requeue();
+
+//obtain unsent messages
+Message.unsent(function(error, messages){
+    ...
+});
+
+//obtain sent messages
+Message.sent(function(error, messages){
+    ...
+});
 
 ``` 
 
