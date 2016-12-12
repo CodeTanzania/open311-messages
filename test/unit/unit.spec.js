@@ -192,6 +192,45 @@ describe('open311-messages', function () {
 
   });
 
+  describe('Message#resend', function () {
+
+    const details = {
+      from: faker.internet.email(),
+      to: faker.internet.email(),
+      body: faker.lorem.sentence(),
+      transport: echoTransport
+    };
+
+    before(function (done) {
+      Message.create(details, done);
+    });
+
+    it('should be able to resend unsent message(s)', function (done) {
+      Message.resend(function (error, messages) {
+        expect(error).to.not.exist;
+        expect(messages).to.exist;
+        expect(messages).to.have.length(1);
+
+        const message = messages[0];
+
+        expect(message._id).to.exist;
+        expect(message.sentAt).to.exist;
+        expect(message.body).to.exist;
+        expect(message.body).to.be.equal(details.body);
+        expect(message.from).to.exist;
+        expect(message.from).to.be.equal(details.from);
+
+        expect(message.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+        expect(message.priority).to.be.equal(Message.PRIORITY_NORMAL);
+        expect(message.queueName)
+          .to.be.equal(Message.TYPE_EMAIL.toLowerCase());
+
+        done(error, messages);
+      });
+    });
+
+  });
+
   describe('message#queue', function () {
 
     it('should be able to queue message for later send', function (done) {
