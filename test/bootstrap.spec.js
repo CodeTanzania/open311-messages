@@ -58,6 +58,11 @@ function cleanup(done) {
     });
 }
 
+//cleanup redis after each test
+afterEach(function (done) {
+  cleanup(done);
+});
+
 //clean database
 after(function (done) {
   async.parallel([wipe, cleanup], function (error) {
