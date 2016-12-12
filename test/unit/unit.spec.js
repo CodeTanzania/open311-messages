@@ -13,6 +13,11 @@ describe('open311-messages', function () {
     expect(Message).to.be.a('function');
   });
 
+  it('should be singleton', function () {
+    const Message2 = require(path.join(__dirname, '..', '..'))();
+    expect(Message._uuid).to.be.equal(Message2._uuid);
+  });
+
   it('should be able to register mongoose model', function () {
     const model = mongoose.model('Message');
     expect(model).to.not.be.null;
