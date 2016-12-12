@@ -140,7 +140,7 @@ describe('open311-messages', function () {
       const message = new Message(details);
 
       message.send({ fake: true }, function (error, sent) {
-        
+
         expect(error).to.not.exist;
         expect(sent).to.exist;
 
@@ -151,6 +151,8 @@ describe('open311-messages', function () {
         expect(sent.from).to.exist;
         expect(sent.from).to.be.equal(details.from);
 
+        expect(sent.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+        expect(sent.priority).to.be.equal(Message.PRIORITY_NORMAL);
         expect(sent.queueName).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
 
         done(error, sent);
@@ -179,6 +181,8 @@ describe('open311-messages', function () {
           expect(sent.from).to.exist;
           expect(sent.from).to.be.equal(details.from);
 
+          expect(sent.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+          expect(sent.priority).to.be.equal(Message.PRIORITY_NORMAL);
           expect(sent.queueName).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
 
           done(error, sent);
