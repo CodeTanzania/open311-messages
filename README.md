@@ -7,9 +7,9 @@ open311-messages
 open311 module to send notification messages i.e email, sms, push etc
 
 ## Requirements
-- [MongoDB]()
+- [MongoDB 3.2+](https://www.mongodb.com/)
 - [NodeJS v6.9.2+](https://nodejs.org)
-- [Redis]()
+- [Redis 2.8 +](https://redis.io/)
 
 ## Usage
 ```sh
