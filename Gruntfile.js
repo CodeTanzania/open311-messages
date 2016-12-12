@@ -16,9 +16,9 @@ module.exports = function (grunt) {
           timeout: 20000
         },
         src: [
-          'test/**/*.js',
-          'test/unit/**/*.js',
-          '!test/intergration/**/*.js'
+          'test/**/*.spec.js',
+          'test/unit/**/*.spec.js',
+          '!test/intergration/**/*.spec.js'
         ]
       },
       intergration: {
@@ -27,9 +27,9 @@ module.exports = function (grunt) {
           timeout: 20000
         },
         src: [
-          'test/**/*.js',
-          'test/intergration/**/*.js',
-          '!test/unit/**/*.js'
+          'test/**/*.spec.js',
+          'test/intergration/**/*.spec.js',
+          '!test/unit/**/*.spec.js'
         ]
       }
     },

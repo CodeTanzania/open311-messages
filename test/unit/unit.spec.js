@@ -5,6 +5,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const faker = require('faker');
+const echoTransport = path.join(__dirname, '..', 'fake', 'echo');
 const Message = require(path.join(__dirname, '..', '..'))();
 
 describe('open311-messages', function () {
@@ -130,7 +131,7 @@ describe('open311-messages', function () {
 
   describe('message instance', function () {
 
-    it('should be able to send message', function (done) {
+    it('should be able to send fake message', function (done) {
       const details = {
         from: faker.internet.email(),
         to: faker.internet.email(),
@@ -153,6 +154,32 @@ describe('open311-messages', function () {
       });
 
     });
+
+    it('should be able to send message using actual transport',
+      function (done) {
+        const details = {
+          from: faker.internet.email(),
+          to: faker.internet.email(),
+          body: faker.lorem.sentence(),
+          transport: echoTransport
+        };
+        const message = new Message(details);
+
+        message.send(function (error, sent) {
+          expect(error).to.not.exist;
+          expect(sent).to.exist;
+
+          expect(sent._id).to.exist;
+          expect(sent.sentAt).to.exist;
+          expect(sent.body).to.exist;
+          expect(sent.body).to.be.equal(details.body);
+          expect(sent.from).to.exist;
+          expect(sent.from).to.be.equal(details.from);
+
+          done(error, sent);
+        });
+
+      });
 
   });
 
