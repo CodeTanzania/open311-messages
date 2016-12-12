@@ -66,6 +66,7 @@ describe('open311-messages', function () {
       const to = schema.to;
       expect(to.index).to.be.true;
       expect(to.required).to.be.true;
+      expect(to.type).to.be.an('array');
     });
 
     it('should have cc property', function () {
@@ -76,6 +77,7 @@ describe('open311-messages', function () {
 
       const cc = schema.cc;
       expect(cc.index).to.be.true;
+      expect(cc.type).to.be.an('array');
     });
 
     it('should have bcc property', function () {
@@ -86,6 +88,7 @@ describe('open311-messages', function () {
 
       const bcc = schema.bcc;
       expect(bcc.index).to.be.true;
+      expect(bcc.type).to.be.an('array');
     });
 
     it('should have body property', function () {
