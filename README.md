@@ -2,7 +2,7 @@ open311-messages
 ================
 
 [![Build Status](https://travis-ci.org/CodeTanzania/open311-messages.svg?branch=master)](https://travis-ci.org/CodeTanzania/open311-messages)
-[![Dependencies Status](https://david-dm.org/CodeTanzania/open311-messages/status.svg?style=flat-square)](https://david-dm.org/CodeTanzania/open311-messages)
+[![Dependencies Status](https://david-dm.org/CodeTanzania/open311-messages/status.svg)](https://david-dm.org/CodeTanzania/open311-messages)
 
 open311 module to send notification messages i.e email, sms, push etc
 
