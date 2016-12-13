@@ -98,6 +98,16 @@ describe('open311-messages', function () {
       expect(bcc.type).to.be.an('array');
     });
 
+    it('should have subject property', function () {
+      const model = mongoose.model('Message');
+      const schema = model.schema.obj;
+
+      expect(schema.subject).to.exist;
+
+      const subject = schema.subject;
+      expect(subject.type).to.be.eql(String);
+    });
+
     it('should have body property', function () {
       const model = mongoose.model('Message');
       const schema = model.schema.obj;
