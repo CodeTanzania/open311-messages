@@ -8,7 +8,6 @@
  */
 
 //dependencies
-const async = require('async');
 const kue = require('kue');
 const mongoose = require('mongoose');
 const Message = mongoose.model('Message');
@@ -29,6 +28,7 @@ exports.queue = function (message) {
 };
 
 exports.send = function (message, done) {
+
   done(null, {
     message: 'success'
   });
@@ -36,15 +36,4 @@ exports.send = function (message, done) {
 };
 
 //process
-exports._queue.process('email', function (job, done) {
-
-  async.waterfall([
-    function findMessage(next) {
-      Message.findById(job.data._id, next);
-    },
-    function sendMessage(message, next) {
-      message.send(next);
-    }
-  ], done);
-
-});
+exports._queue.process('email', Message.process);
