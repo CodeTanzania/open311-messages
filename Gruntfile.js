@@ -18,17 +18,17 @@ module.exports = function (grunt) {
         src: [
           'test/**/*.spec.js',
           'test/unit/**/*.spec.js',
-          '!test/intergration/**/*.spec.js'
+          '!test/integration/**/*.spec.js'
         ]
       },
-      intergration: {
+      integration: {
         options: {
           reporter: 'spec',
           timeout: 20000
         },
         src: [
           'test/**/*.spec.js',
-          'test/intergration/**/*.spec.js',
+          'test/integration/**/*.spec.js',
           '!test/unit/**/*.spec.js'
         ]
       }
@@ -70,6 +70,6 @@ module.exports = function (grunt) {
   //custom tasks
   grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'watch']);
   grunt.registerTask('test', ['jshint', 'mochaTest:unit']);
-  grunt.registerTask('intergration', ['jshint', 'mochaTest:intergration']);
+  grunt.registerTask('integration', ['jshint', 'mochaTest:integration']);
 
 };
