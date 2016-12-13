@@ -137,6 +137,13 @@ describe('open311-messages', function () {
       expect(schema.result).to.exist;
     });
 
+    it('should have options property', function () {
+      const model = mongoose.model('Message');
+      const schema = model.schema.obj;
+
+      expect(schema.options).to.exist;
+    });
+
   });
 
   describe('message#send', function () {
