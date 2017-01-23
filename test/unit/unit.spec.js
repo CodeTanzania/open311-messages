@@ -144,6 +144,16 @@ describe('open311-messages', function () {
       expect(schema.options).to.exist;
     });
 
+    it('should have hash property', function () {
+      const model = mongoose.model('Message');
+      const schema = model.schema.obj;
+
+      expect(schema.hash).to.exist;
+
+      const hash = schema.hash;
+      expect(hash.type).to.be.eql(String);
+    });
+
   });
 
   describe('message#send', function () {
@@ -171,6 +181,8 @@ describe('open311-messages', function () {
         expect(sent.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
         expect(sent.priority).to.be.equal(Message.PRIORITY_NORMAL);
         expect(sent.queueName).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
+
+        expect(sent.hash).to.exist;
 
         done(error, sent);
       });
