@@ -195,6 +195,8 @@ describe('open311-messages', function () {
         expect(sent.queueName).to.be.equal(Message.TYPE_EMAIL.toLowerCase());
 
         expect(sent.hash).to.exist;
+        expect(sent.state).to.exist;
+        expect(sent.state).to.be.equal(Message.STATE_UNKNOWN);
 
         done(error, sent);
       });
