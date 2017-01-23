@@ -64,6 +64,18 @@ describe('open311-messages', function () {
       expect(state.type).to.be.eql(String);
     });
 
+    it('should have mode property', function () {
+      const model = mongoose.model('Message');
+      const schema = model.schema.obj;
+
+      expect(schema.mode).to.exist;
+
+      const mode = schema.mode;
+      expect(mode.index).to.be.true;
+      expect(mode.default).to.be.equal(Message.SEND_MODE_PUSH);
+      expect(mode.type).to.be.eql(String);
+    });
+
     it('should have from property', function () {
       const model = mongoose.model('Message');
       const schema = model.schema.obj;
