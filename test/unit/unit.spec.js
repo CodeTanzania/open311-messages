@@ -40,6 +40,18 @@ describe('open311-messages', function () {
       expect(type.type).to.be.eql(String);
     });
 
+    it('should have mime property', function () {
+      const model = mongoose.model('Message');
+      const schema = model.schema.obj;
+
+      expect(schema.mime).to.exist;
+
+      const mime = schema.mime;
+      expect(mime.index).to.be.true;
+      expect(mime.default).to.be.equal(Message.MIME_TEXT);
+      expect(mime.type).to.be.eql(String);
+    });
+
     it('should have direction property', function () {
       const model = mongoose.model('Message');
       const schema = model.schema.obj;
@@ -209,6 +221,9 @@ describe('open311-messages', function () {
         expect(sent.hash).to.exist;
         expect(sent.state).to.exist;
         expect(sent.state).to.be.equal(Message.STATE_UNKNOWN);
+
+        expect(sent.mime).to.exist;
+        expect(sent.mime).to.be.equal(Message.MIME_TEXT);
 
         done(error, sent);
       });
