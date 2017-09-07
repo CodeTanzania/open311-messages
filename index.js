@@ -19,7 +19,10 @@ const modelName = 'Message';
 
 exports = module.exports = function (options) {
   //merge default options
-  options = _.merge({}, options);
+  options = _.merge({}, { fake: false }, options);
+
+  //ensure proper queue
+  const useFakeQueue = options.fake;
 
   //ensure singletons
   try {
@@ -43,7 +46,8 @@ exports = module.exports = function (options) {
      * @since 0.1.0
      * @private
      */
-    MessageSchema.statics._queue = kue.createQueue(options);
+    MessageSchema.statics._queue =
+      (useFakeQueue ? undefined : kue.createQueue(options));
 
 
     /**
@@ -53,6 +57,9 @@ exports = module.exports = function (options) {
     Message = mongoose.model(modelName, MessageSchema);
 
   }
+
+  //ensure options
+  Message.options = _.merge({}, Message.options, options);
 
   //export message model
   return Message;
