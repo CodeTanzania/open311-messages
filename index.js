@@ -11,7 +11,7 @@
 //dependencies
 const path = require('path');
 const _ = require('lodash');
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
 const kue = require('kue');
 const MessageSchema = require(path.join(__dirname, 'lib', 'message'));
 let Message;
@@ -20,6 +20,12 @@ const modelName = 'Message';
 exports = module.exports = function (options) {
   //merge default options
   options = _.merge({}, { fake: false, sync: false }, options);
+
+  //obtain custom passed mongoose
+  if (options.mongoose) {
+    mongoose = options.mongoose;
+    delete options.mongoose;
+  }
 
   //ensure proper queue
   const useSyncTransport = options.sync;
