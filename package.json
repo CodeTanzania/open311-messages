@@ -1,6 +1,6 @@
 {
   "name": "open311-messages",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "open311 module to send notification messages i.e email, sms, push etc",
   "main": "index.js",
   "scripts": {

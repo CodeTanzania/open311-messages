@@ -19,10 +19,10 @@ const modelName = 'Message';
 
 exports = module.exports = function (options) {
   //merge default options
-  options = _.merge({}, { fake: false }, options);
+  options = _.merge({}, { fake: false, sync: false }, options);
 
   //ensure proper queue
-  const useFakeQueue = options.fake;
+  const useSyncTransport = options.sync;
 
   //ensure singletons
   try {
@@ -47,7 +47,7 @@ exports = module.exports = function (options) {
      * @private
      */
     MessageSchema.statics._queue =
-      (useFakeQueue ? undefined : kue.createQueue(options));
+      (useSyncTransport ? undefined : kue.createQueue(options));
 
 
     /**
